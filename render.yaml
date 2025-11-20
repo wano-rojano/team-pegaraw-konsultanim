@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: bantai-palay
+    runtime: python
+    plan: free
+    buildCommand: uv sync
+    startCommand: uv run python -m app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12
+      - key: PORT
+        fromService:
+          type: web
+          name: bantai-palay
+          property: port
+    healthCheckPath: /health
